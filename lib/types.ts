@@ -10,8 +10,16 @@ export type FormFieldProps<T extends FieldValues> = {
 };
 
 export type ValidFormLogin = 'email' | 'password';
+export type ValidFormRegister = 'email' | 'username' | 'password' | 'password_confirm';
 
 export type FormDataLogin = {
   email: string;
   password: string;
+};
+
+export type FormDataRegister = {
+  email: string;
+  username: string;
+  password: string;
+  password_confirm: string;
 };
