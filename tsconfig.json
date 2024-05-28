@@ -21,6 +21,14 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/profil/page.tsx",
+    "components/LinkCard.jsx",
+    "components/DraggableLinkCard.jsx"
+  ],
   "exclude": ["node_modules"]
 }
