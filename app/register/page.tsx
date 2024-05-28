@@ -1,7 +1,5 @@
 'use client';
-
 import Link from "next/link";
-
 import FormField from "@/components/ui/FormField";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,25 +10,54 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import {FormLoginSchema, FormRegisterSchema} from "@/lib/schema";
+import {FormRegisterSchema} from "@/lib/schema";
 import {FormDataLogin, FormDataRegister} from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from 'react';
+import { useToast } from '@/components/ui/use-toast';
+
 
 export default function LoginPage() {
   const {register, handleSubmit, formState: {errors}} = useForm<FormDataRegister>({
     resolver: zodResolver(FormRegisterSchema),
   });
-
-  const onSubmit = (data: FormDataLogin) => {
-    console.log(data); 
-  }
+  const [registerError, setRegisterError] = useState<string | null>(null);
+  const { toast } = useToast();
 
 
-  function isPasswordConfirmMatching(password: string, passwordConfirm: string) {
-    return password === passwordConfirm
-  }
+  useEffect(() => {
+    if (registerError)
+      toast({
+        variant: "destructive",
+        title: "Error while registering",
+        description: registerError,
+      });
+  }, [registerError, toast]);
 
+
+  const onSubmit = async (data: FormDataLogin) => {
+    setRegisterError(null);
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status !== 201) {
+        const errorData = await response.json();
+        console.log(errorData);
+        setRegisterError(errorData.message || 'Registration failed');
+      } else {
+        setRegisterError(null); // Réinitialiser l'erreur en cas de succès
+      }
+    } catch (error) {
+      setRegisterError('An unexpected error occurred');
+    }
+  };
+  
 
   return (
 
