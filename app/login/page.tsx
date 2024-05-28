@@ -27,8 +27,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <Card className="mx-auto max-w-sm">
+    <div className="w-full h-screen flex md:justify-center md:items-center">
+      <Card className="md:mx-auto md:max-w-sm border-0 shadow-none w-full md:border md:shadow-md">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 showToast={true}
               />
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-2 mb-6">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <Link href="#" className="ml-auto inline-block text-sm underline">
