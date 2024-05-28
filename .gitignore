@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+# intelij
+.idea
+
 # next.js
 /.next/
 /out/
