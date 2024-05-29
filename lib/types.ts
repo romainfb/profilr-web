@@ -23,3 +23,20 @@ export type FormDataRegister = {
   password: string;
   password_confirm: string;
 };
+
+export type UserToRegister = {
+  email: string;
+  username: string;
+  password: string;
+};
+
+export type User = {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  phone?: string;
+  avatar?: string;
+  created_at?: string;
+  updated_at?: string;
+}
