@@ -1,7 +1,7 @@
-import Credentials from 'next-auth/providers/credentials';
-import NextAuth from 'next-auth';
 import { getUserByEmail } from '@/app/api/auth/auth.service';
-import { comparePassword} from '@/lib/password';
+import { comparePassword } from '@/lib/password';
+import NextAuth from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -20,6 +20,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
     })
   ],
+  callbacks: {
+    async session({ session, token }) {
+      session.user.id = token.sub as string;
+      return session;
+    },
+  },
   pages: {
     signIn: '/login'
   },
