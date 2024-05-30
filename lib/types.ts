@@ -40,3 +40,20 @@ export type User = {
   created_at?: string;
   updated_at?: string;
 }
+
+export type ProfileR = {
+  id: number;
+  url?: string;
+  user_id: number;
+  bio: string;
+  avatar?: Date;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type Link = {
+  title: string;
+  description: string;
+  url: string;
+  order: number;
+};

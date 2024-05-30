@@ -12,21 +12,25 @@ import {
 import { Pen } from "lucide-react";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
 
-export function DrawerNameEdit({
-  onUpdateName,
-  currentName,
+export function DrawerProfileTitleEdit({
+  setProfileTitle,
+  profileTitle,
 }: {
-  onUpdateName: (name: string) => void;
-  currentName: string;
+  setProfileTitle: (profileTitle: string) => void;
+  profileTitle: string;
 }) {
-  const [name, setName] = useState(currentName);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [titleToEdit, setTitleToEdit] = useState(profileTitle);
+
+  const { toast } = useToast();
+  
 
   const handleUpdate = () => {
     setIsOpen(false);
-    onUpdateName(name);
+    setProfileTitle(titleToEdit);
   };
 
   return (
@@ -44,8 +48,8 @@ export function DrawerNameEdit({
                   type="text"
                   placeholder="Nom"
                   className="h-fit"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={titleToEdit}
+                  onChange={(e) => setTitleToEdit(e.target.value)}
                 />
               </div>
             </DrawerDescription>
