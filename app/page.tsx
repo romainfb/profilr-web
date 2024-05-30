@@ -11,16 +11,12 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDraggableLinkCard } from "@/lib/dnd-utils";
 import { handleAddLink, handleDelete, moveLink } from "@/lib/link-utils"; // Importer les fonctions depuis link-utils
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function ProfilPage() {
-
-  //const session = useSession();
-  // const currentId = session.data?.user?.id;
-
-  const currentId = 1;
 
   const [links, setLinks] = useState([]);
   const [profileBiography, setProfileBiography] = useState<string>("");
@@ -28,15 +24,28 @@ export default function ProfilPage() {
   const [profileAvatar, setProfileAvatar] = useState(null);
   const [name, setName] = useState(null);
 
+  const session = useSession();
+  const [currentId, setCurrentId] = useState<number | null>(null);
+
   useEffect(() => {
+    if (session.data)
+      setCurrentId(session.data?.user?.id as any as number);
+  }, [session]);
+    
+
+  useEffect(() => {
+    if (!currentId) return;
+    console.log("AUAAYAYYAYAYYAYA", currentId)
+    console.log("AUAAYAYYeAYAYYgAYA", currentId)
+    console.log("AUAAYAYYAefYAYYAYA", currentId)
+
     fetch(`/api/link?id=${currentId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data, "DFEEEEEEEEEEEEEEEE")
         setLinks(data);
       });
-  }, [currentId]);
 
-  useEffect(() => {
     fetch(`/api/profile?id=${currentId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -44,9 +53,7 @@ export default function ProfilPage() {
         setProfileBiography(data.bio);
         setProfileTitle(data.title);
       });
-  }, [currentId]);
 
-  useEffect(() => {
     fetch(`/api/user?id=${currentId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -59,7 +66,7 @@ export default function ProfilPage() {
   const handleDeleteCallback = handleDelete(setLinks);
 
   const handleSave = () => {
-    fetch(`/api/profile?id=${currentId}`, {
+    fetch(`/api/profile`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
@@ -70,7 +77,7 @@ export default function ProfilPage() {
       .then((data) => {
       });
 
-    fetch(`/api/link?id=${currentId}`, {
+    fetch(`/api/link`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
@@ -81,7 +88,7 @@ export default function ProfilPage() {
       .then((data) => {
       });
 
-    fetch(`/api/user?id=${currentId}`, {
+    fetch(`/api/user`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
@@ -157,7 +164,7 @@ export default function ProfilPage() {
           <div className="flex w-full h-fit rounded-2xl flex-col space-y-6 my-6">
             <DrawerLinksAdd onAddLink={handleAddLinkCallback} />
 
-            {links.map((link: {
+            {links && links.map((link: {
               title: string;
               description: string;
               icon: string;
@@ -171,6 +178,7 @@ export default function ProfilPage() {
                 onDelete={() => handleDeleteCallback(link.title)}
               />
             ))}
+
           </div>
         </div>
 

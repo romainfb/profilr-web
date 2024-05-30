@@ -1,5 +1,5 @@
-import { Client } from 'pg';
 import dotenv from 'dotenv';
+import { Client } from 'pg';
 
 dotenv.config();
 
@@ -20,6 +20,10 @@ export async function dbConnect() {
       ssl: {
         rejectUnauthorized: false,
       },
+    });
+
+    client.on("error", (err) => {
+      console.error("Unexpected error on idle client", err);
     });
 
     await client.connect();

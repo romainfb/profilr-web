@@ -1,18 +1,22 @@
 import { getLinksByProfileId, updateLinks } from '@/lib/link/data';
+import { getProfileIdByUserId } from '@/lib/profile/data';
+import { useSession } from "next-auth/react";
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Récupérer l'ID de l'utilisateur de l'URL de la requête
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    const userId = searchParams.get('id');
     // Vérifier si l'ID de l'utilisateur est fourni
-    if (!id) {
+    if (!userId) {
       throw new Error('User ID is required');
     }
 
+    const {id: profileId} = await getProfileIdByUserId(userId);
+
     // Appeler la méthode getProfileById pour récupérer le profil de l'utilisateur
-    const userProfile = await getLinksByProfileId(id.toString());
+    const userProfile = await getLinksByProfileId(profileId.toString());
 
     // Retourner la réponse avec le profil de l'utilisateur
     return NextResponse.json(userProfile, { status: 200 });
@@ -23,19 +27,23 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
 export async function PATCH(request: NextRequest): Promise<NextResponse> {
   try {
-    // Récupérer l'ID de l'utilisateur de l'URL de la requête
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    
+    const session = useSession();
+    const userId = session.data?.user?.id;
     // Vérifier si l'ID de l'utilisateur est fourni
-    if (!id) {
+    if (!userId) {
       throw new Error('User ID is required');
     }
+
+    const {id: profileId} = await getProfileIdByUserId(userId.toString());
+
+    console.log('profileId in profile route.ts OO', profileId)
 
     // Récupérer les données de la requête
     const data = await request.json();
 
     // Appeler la méthode updateProfile pour mettre à jour le profil de l'utilisateur
-    const updatedLinks = await updateLinks(id.toString(), data);
+    const updatedLinks = await updateLinks(profileId.toString(), data);
 
     // Retourner la réponse avec le profil mis à jour de l'utilisateur
     return NextResponse.json(updatedLinks, { status: 200 });

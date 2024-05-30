@@ -1,6 +1,6 @@
 import { dbConnect } from '@/lib/dbConnect';
 
-export async function getProfileById(userId: string) {
+export async function getProfileById(profileId: string) {
   const client = await dbConnect();
 
   if (!client) {
@@ -8,9 +8,11 @@ export async function getProfileById(userId: string) {
   }
 
   try {
-    const query = 'SELECT * FROM profilr WHERE user_id = $1';
-    const values = [userId];
+    const query = 'SELECT * FROM profilr WHERE id = $1';
+    const values = [profileId];
     const result = await client.query(query, values);
+
+    console.log(profileId, 'userId in getProfileById ICI')
     
     if (result.rows.length === 0) {
       throw new Error('Profile not found');
@@ -44,6 +46,34 @@ export async function updateProfile(userId: string, data: any) {
     return result.rows[0];
   } catch (error) {
     console.error('Error updating profile data', error);
+    throw error;
+  } finally {
+    await client.end();
+  }
+}
+ 
+export async function getProfileIdByUserId(userId: string) {
+  const client = await dbConnect();
+
+  if (!client) {
+    throw new Error("Could not connect to database");
+  }
+
+  try {
+    const query = 'SELECT id FROM profilr WHERE user_id = $1';
+    const values = [userId];
+    console.log(userId, 'clientId in getProfileIdByClientId')
+    const result = await client.query(query, values);
+    
+    if (result.rows[0].length === 0) {
+      throw new Error('Profile not found');
+    }
+
+    console.log('result.rows[0] in getProfileIdByClientId', result.rows[0])
+
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error fetching profile data', error);
     throw error;
   } finally {
     await client.end();

@@ -11,7 +11,7 @@ export async function getLinksByProfileId(profileId: string) {
     const query = 'SELECT * FROM link WHERE profilr_id = $1';
     const values = [profileId];
     const result = await client.query(query, values);
-    
+
     return result.rows;
   } catch (error) {
     console.error('Error fetching links data', error);
