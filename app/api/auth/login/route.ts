@@ -13,7 +13,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       password,
     });
     
-    return NextResponse.json({}, { status: 201 });
+    return NextResponse.json({}, { status: 200 });
   } catch (e: any) {
     console.log(e);
     return NextResponse.json({ message: e}, { status: 500 });
