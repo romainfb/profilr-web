@@ -25,15 +25,17 @@ export function DrawerNameEdit({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleUpdate = () => {
-    setIsOpen(false);
+    setIsOpen(true);
     onUpdateName(name);
   };
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Pen className="h-5 w-5" />
-      </DrawerTrigger>
+
+        <DrawerTrigger asChild>
+          <Pen className="h-5 w-5" />
+        </DrawerTrigger>
+
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>

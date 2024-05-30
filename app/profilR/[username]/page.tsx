@@ -68,19 +68,15 @@ export default function ProfilPage() {
     setName(newName);
   };
 
-  const isEditable = false;
-
   return (
     <DndProvider backend={HTML5Backend}>
       <section className="flex w-screen h-screen items-center flex-col py-6 px-10 lg:w-2/3 mx-auto">
-
         {/* Profil bar */}
         <div className="flex flex-row items-center w-full justify-between">
           <DarkMode />
           <p className="text-lg font-bold">ProfilR</p>
           <DrawerShare />
         </div>
-
         {/* Profil informations */}
         <div className="flex flex-col items-center space-y-6 lg:mt-8">
           <Avatar className="w-40 h-40 mt-10">
@@ -95,12 +91,10 @@ export default function ProfilPage() {
           <div className="flex flex-col items-center space-y-2">
             <div className="flex flex-row items-center space-x-3">
               <h1 className="text-4xl font-bold text-center">{name}</h1>
-              {isEditable &&
-                <DrawerNameEdit
-                  onUpdateName={handleUpdateName}
-                  currentName={name}
-                />
-              }
+              <DrawerNameEdit
+                onUpdateName={handleUpdateName}
+                currentName={name}
+              />
             </div>
 
             <p className="text-center text-muted-foreground">@SupDeVinci</p>
@@ -109,10 +103,8 @@ export default function ProfilPage() {
           <DrawerDescriptionEdit
             onUpdateDescription={handleUpdateDescription}
             currentDescription={biography}
-            isEditable={isEditable}
           />
         </div>
-
         {/* Profil links */}
         <div className="flex flex-col items-center py-16 w-full">
           <div className="flex w-full h-fit flex-row items-center">
@@ -124,11 +116,7 @@ export default function ProfilPage() {
           <Separator />
 
           <div className="flex w-full h-fit rounded-2xl flex-col space-y-6 my-6">
-            {isEditable &&
-              <DrawerLinksAdd
-               onAddLink={handleAddLink}
-             />
-            }
+            <DrawerLinksAdd onAddLink={handleAddLink} />
 
             {links.map((link, index) => (
               <DraggableLinkCard
@@ -137,7 +125,6 @@ export default function ProfilPage() {
                 link={link}
                 moveLink={moveLink}
                 onDelete={() => handleDelete(link.title)}
-                isEditable={isEditable}
               />
             ))}
           </div>
@@ -152,7 +139,6 @@ function DraggableLinkCard({
   index,
   moveLink,
   onDelete,
-  isEditable,
 }: {
   link: {
     title: string;
@@ -163,7 +149,6 @@ function DraggableLinkCard({
   index: number;
   moveLink: (dragIndex: number, hoverIndex: number) => void;
   onDelete: () => void;
-  isEditable: boolean;
 }) {
   const { ref, isDragging } = useDraggableLinkCard(index, moveLink);
 
@@ -174,7 +159,6 @@ function DraggableLinkCard({
         description={link.description}
         icon={link.icon}
         onDelete={onDelete}
-        isEditable={isEditable}
       />
     </div>
   );

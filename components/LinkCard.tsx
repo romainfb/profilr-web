@@ -1,6 +1,6 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import * as LucideIcons from "lucide-react";
-import { CircleX, GripVertical } from "lucide-react";
+import { CircleX } from "lucide-react";
 
 const IconComponent = ({ iconName }: { iconName: string }) => {
   // @ts-ignore
@@ -13,19 +13,21 @@ export const LinkCard = ({
   description,
   icon,
   onDelete,
+  isEditable,
 }: {
   title: string;
   description: string;
   icon: string;
   onDelete: () => void;
+  isEditable?: boolean;
 }) => {
   return (
     <Alert className="cursor-pointer flex flex-row justify-between">
-      <GripVertical className="h-6 w-6 text-muted-foreground" />
+
+      <IconComponent iconName={icon} />
 
       <div className="flex flex-col ml-2">
         <div className="flex items-center space-x-2">
-          <IconComponent iconName={icon} />
           <AlertTitle>{title}</AlertTitle>
         </div>
 
@@ -33,12 +35,11 @@ export const LinkCard = ({
           {description}
         </AlertDescription>
       </div>
-      <span
-        className="cursor-pointer items-center flex w-fit"
-        onClick={onDelete}
-      >
-        <CircleX className="h-6 w-6" />
-      </span>
+      {isEditable && (
+        <span className="cursor-pointer items-center flex w-fit" onClick={onDelete}>
+          <CircleX className="h-6 w-6" />
+        </span>
+      )}
     </Alert>
   );
 };

@@ -16,9 +16,11 @@ import { Input } from "../ui/input";
 export function DrawerDescriptionEdit({
   onUpdateDescription,
   currentDescription,
+  isEditable,
 }: {
   onUpdateDescription: (description: string) => void;
   currentDescription: string;
+  isEditable?: boolean;
 }) {
   const [description, setDescription] = useState(currentDescription);
 
@@ -30,12 +32,14 @@ export function DrawerDescriptionEdit({
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Button className="">
-          Biographie <Pen className="h-4 w-4 ml-2 cursor-pointer" />
-        </Button>
-      </DrawerTrigger>
+    <Drawer open={isEditable && isOpen} onOpenChange={setIsOpen}>
+
+        <DrawerTrigger asChild>
+            <Button className="">
+              Biographie {isEditable && <Pen className="h-4 w-4 ml-2 cursor-pointer" />}
+            </Button>
+        </DrawerTrigger>
+
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
