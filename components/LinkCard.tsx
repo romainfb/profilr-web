@@ -9,17 +9,19 @@ const IconComponent = ({ iconName }: { iconName: string }) => {
 };
 
 export const LinkCard = ({
-  title,
-  description,
-  icon,
-  onDelete,
-  isEditable,
-}: {
-  title: string;
-  description: string;
-  icon: string;
-  onDelete: () => void;
-  isEditable?: boolean;
+                           title,
+                           description,
+                           icon,
+                           onDelete,
+                           isEditable,
+                         }: {
+  title: string,
+  description: string,
+  icon: string,
+  
+  onDelete: () => void,
+  isEditable?: boolean,
+  link?: any
 }) => {
   return (
     <Alert className="cursor-pointer flex flex-row justify-between">
