@@ -48,7 +48,6 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
 
   }
   catch (e: any) {
-    console.log(e);
     return NextResponse.json({ message: e.message }, { status: 400 });
   }
 }
