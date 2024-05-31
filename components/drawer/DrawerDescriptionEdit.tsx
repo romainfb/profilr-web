@@ -35,11 +35,11 @@ export function DrawerProfileBiographyEdit({
   };
 
   return (
-    <Drawer open={isEditable && isOpen} onOpenChange={setIsOpen}>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
 
         <DrawerTrigger asChild>
             <Button className="">
-              Biographie {isEditable && <Pen className="h-4 w-4 ml-2 cursor-pointer" />}
+              Biographie {<Pen className="h-4 w-4 ml-2 cursor-pointer" />}
             </Button>
         </DrawerTrigger>
 
