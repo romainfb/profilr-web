@@ -240,6 +240,7 @@ function DraggableLinkCard({link, index, moveLink, onDelete}: {
         title={link.title}
         description={link.description}
         icon={link.icon}
+        isEditable={true}
         onDelete={onDelete}
       />
     </div>
