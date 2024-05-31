@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 
  
 export default function NotFound() {
@@ -13,10 +13,10 @@ export default function NotFound() {
           <div className="sm:ml-6">
             <div className="sm:border-l sm:border-gray-200 sm:pl-6">
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-                Page not found
+                Page introuvable
               </h1>
               <p className="mt-1 text-base">
-                Please check the URL in the address bar and try again.
+                Veuillez vérifier l&apos;URL dans la barre d&apos;adresse et réessayer.
               </p>
             </div>
             <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">

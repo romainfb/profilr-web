@@ -5,6 +5,7 @@ import { LinkCard } from "@/components/LinkCard";
 import { LogoutPopup } from "@/components/LogoutPopup";
 import { DrawerProfileBiographyEdit } from "@/components/drawer/DrawerDescriptionEdit";
 import { DrawerLinksAdd } from "@/components/drawer/DrawerLinksAdd";
+import { DrawerProfileTitleEdit } from "@/components/drawer/DrawerNameEdit";
 import { DrawerShare } from "@/components/drawer/DrawerShare";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDraggableLinkCard } from "@/lib/dnd-utils";
 import { handleAddLink, handleDelete, moveLink } from "@/lib/link-utils";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -21,7 +22,7 @@ export default function ProfilPage() {
   const [links, setLinks] = useState<any[]>([]);
   const [profileBiography, setProfileBiography] = useState<string>("");
   const [profileTitle, setProfileTitle] = useState<string>('');
-  const [profileAvatar, setProfileAvatar] = useState(null);
+  const [profileAvatar, setProfileAvatar] = useState<string>('');
   const [name, setName] = useState(null);
 
   const session = useSession();
@@ -58,13 +59,33 @@ export default function ProfilPage() {
     };
 
     fetchData();
-  }, [currentId]);
+  }, [currentId, isLoading]);
 
   const moveLinkCallback = moveLink(setLinks);
   const handleAddLinkCallback = handleAddLink(setLinks);
   const handleDeleteCallback = handleDelete(setLinks);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleProfilePictureClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfileAvatar(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = async () => {
+    setIsLoading(true);
     try {
       await Promise.all([
         fetch(`/api/profile`, {
@@ -77,12 +98,8 @@ export default function ProfilPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(links),
         }),
-        fetch(`/api/user`, {
-          method: "PATCH",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: name }),
-        }),
       ]);
+      
     } catch (error) {
       console.error("Error saving data:", error);
     }
@@ -125,11 +142,11 @@ export default function ProfilPage() {
             {/* Profil informations */}
             <div className="flex flex-col items-center space-y-6 lg:mt-8">
               {profileAvatar ? (
-                <Avatar className="w-40 h-40 mt-10">
+                <Avatar className="w-40 h-40 mt-10 cursor-pointer" onClick={handleProfilePictureClick}>
                   <AvatarImage
                     src={profileAvatar}
                     alt="@shadcn"
-                    className="w-full h-full"
+                    className="w-full h-full object-cover"
                   />
                   <AvatarFallback className="w-full h-full">Profil</AvatarFallback>
                 </Avatar>
@@ -137,10 +154,23 @@ export default function ProfilPage() {
                 <Skeleton className="w-40 h-40 rounded-full mt-10" />
               )}
 
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleProfilePictureChange}
+              />
+
               <div className="flex flex-col items-center space-y-2">
                 <div className="flex flex-row items-center space-x-3">
                   {profileTitle ? (
-                    <h1 className="text-4xl font-bold text-center">{profileTitle}</h1>
+                    <>
+                      <h1 className="text-4xl font-bold text-center">{profileTitle}</h1>
+                      <DrawerProfileTitleEdit 
+                      setProfileTitle={setProfileTitle}
+                      profileTitle={profileTitle}/>
+                    </>
                   ) : (
                     <Skeleton className="w-full h-8 rounded-full" />
                   )}
@@ -191,14 +221,7 @@ export default function ProfilPage() {
 }
 
 
-function DraggableLinkCard({
-
-                             link,
-                             index,
-                             moveLink,
-                             onDelete,
-                           }: {
-
+function DraggableLinkCard({link, index, moveLink, onDelete}: {
   link: {
     title: string;
     description: string;

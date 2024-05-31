@@ -11,17 +11,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       throw new Error('User ID is required');
     }
 
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('id', id);
-
     // Appeler la méthode getProfileById pour récupérer le profil de l'utilisateur
     const userProfile = await getUserById(id.toString());
 
@@ -33,8 +22,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       username: userProfile.username,
       avatar: userProfile.avatar
     };
-
-    console.log('filteredUserProfile', filteredUserProfile);
 
     // Retourner la réponse avec le profil de l'utilisateur filtré
     return NextResponse.json(filteredUserProfile, { status: 200 });

@@ -25,7 +25,6 @@ export default function ProfilPage() {
     fetch(`/api/profilr/${username}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setName(data.profilr.title);
         setBiography(data.profilr.bio);
         setLinks(data.links);

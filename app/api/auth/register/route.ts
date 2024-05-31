@@ -10,7 +10,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     await createProfile(user?.id as string);
     return NextResponse.json({ user }, { status: 201 });
   } catch (e: any) {
-    console.log(e);
     if (e instanceof CustomError){
       return NextResponse.json({ message: e.message }, { status: e.statusCode });
     }

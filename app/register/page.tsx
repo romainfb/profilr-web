@@ -33,7 +33,7 @@ export default function RegisterPage() {
     if(registerSuccess)
       toast({
         variant: "success",
-        title: "Registration successful",
+        title: "Votre compte a été créé avec succès",
         description: registerSuccess,
       });
     if (registerError)
@@ -64,7 +64,7 @@ export default function RegisterPage() {
         setRegisterError(errorData.message || 'Registration failed');
       } else {
         router.push('/');
-        setRegisterSuccess('Registration successful');
+        setRegisterSuccess('Votre compte a été créé avec succès');
         setRegisterError(null); // Réinitialiser l'erreur en cas de succès
       }
     } catch (error) {
@@ -79,9 +79,9 @@ export default function RegisterPage() {
     <div className="w-full h-screen flex md:justify-center md:items-center">
       <Card className="md:mx-auto md:max-w-sm border-0 shadow-none w-full md:border md:shadow-md">
         <CardHeader>
-          <CardTitle className="text-xl">Sign Up</CardTitle>
+          <CardTitle className="text-xl">Créer un compte</CardTitle>
           <CardDescription>
-            Enter your information to create an account
+            Entrez vos informations pour créer un compte
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -98,10 +98,10 @@ export default function RegisterPage() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Nom d&apos;utilisateur</Label>
               <FormField
                 type={'text'}
-                placeholder={'username'}
+                placeholder={'Nom d\'utilisateur'}
                 name={'username'}
                 register={register}
                 error={errors.username}
@@ -109,10 +109,10 @@ export default function RegisterPage() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Mot de passe</Label>
               <FormField
                 type={'password'}
-                placeholder={'password'}
+                placeholder={'Mot de passe'}
                 name={'password'}
                 register={register}
                 error={errors.password}
@@ -120,10 +120,10 @@ export default function RegisterPage() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password_confirm">Password Confirm</Label>
+              <Label htmlFor="password_confirm">Confirmation du mot de passe</Label>
               <FormField
                 type={'password'}
-                placeholder={'password confirm'}
+                placeholder={'Confirmation du mot de passe'}
                 name={'password_confirm'}
                 register={register}
                 error={errors.password_confirm}
@@ -148,16 +148,16 @@ export default function RegisterPage() {
                       fill="currentFill"
                     />
                   </svg>
-                  <span className="sr-only">Loading...</span>
+                  <span className="sr-only">Chargement...</span>
                 </div>) :
-                (<>Register</>)
+                (<>Créer un compte</>)
               }
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Already have an account? &nbsp;
+            Vosu avez déjà un compte ? &nbsp;
             <Link href={'/login'} className="underline">
-              Sign in
+              Me connecter
             </Link>
           </div>
         </CardContent>
