@@ -13,7 +13,7 @@ export async function createUserInDb(user: UserToRegister){
       values: [username, email, password],
     };
     const result = await client.query(query);
-    return result.rows;
+    return result.rows[0];
   } finally {
     await client.end(); // Fermer la connexion après utilisation
   }

@@ -79,3 +79,24 @@ export async function getProfileIdByUserId(userId: string) {
     await client.end();
   }
 }
+
+export async function createProfile(userId: string) {
+  const client = await dbConnect();
+
+  if (!client) {
+    throw new Error("Could not connect to database");
+  }
+
+  try {
+    const query = 'INSERT INTO profilr (user_id) VALUES ($1) RETURNING *';
+    const values = [userId];
+    const result = await client.query(query, values);
+
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error creating profile', error);
+    throw error;
+  } finally {
+    await client.end();
+  }
+}
