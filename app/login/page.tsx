@@ -13,7 +13,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { FormLoginSchema } from '@/lib/schema';
 import { FormDataLogin } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignInResponse, signIn } from 'next-auth/react';
+import { SignInResponse, signIn} from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -39,37 +39,40 @@ export default function LoginPage() {
         title: "Registration successful",
         description: loginSuccess,
       });
-    if (loginError)
+    if(loginError)
       toast({
         variant: "destructive",
         title: "Error while registering",
         description: loginError,
       });
-  }, [loginError, loginSuccess]);
+  }, [loginError, loginSuccess, toast]);
+  
 
   const onSubmit = async (data: FormDataLogin) => {
+    setIsLoading(true);
     setLoginError(null);
     setLoginSuccess(null);
-    setIsLoading(true);
     try {
       const response: SignInResponse | undefined = await signIn('credentials', {
         email: data.email,
         password: data.password,
         redirect: false
       });
-      setIsLoading(false);
-      if (!response?.ok) {
-        setLoginError('Invalid credentials');
+      if (response?.error){
+        setIsLoading(false);
+        setLoginError(response.error);
         return;
       }
-        setLoginSuccess('Registration successful');
-          router.push('/');
+      else{
+        setIsLoading(false);
+        setLoginSuccess('Login successful');
+        router.push('/');
+      }
     } catch (error: any) {
       setIsLoading(false);
       console.warn(error);
-      setLoginError(error.message || 'Registration failed');
+      setLoginError(error.message || 'Login failed');
     }
-    
   };
 
 
