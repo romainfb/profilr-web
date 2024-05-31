@@ -18,13 +18,15 @@ type LinkType = {
 
 export default function ProfilPage() {
   
+  const router = useRouter();
+  
   const path = usePathname();
   const username = path.split("/")[2];
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     if (isNotFound) {
-      window.location.href = "/notfound";
+      router.push("/notfound");
     }
   }, [isNotFound]);
 
