@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Facebook, Instagram, Link, Linkedin, Upload } from "lucide-react";
+import { Facebook, Instagram, Link, Linkedin, Upload, X } from 'lucide-react';
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -55,12 +55,13 @@ export function DrawerLinksAdd({
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Alert className="cursor-pointer border-2 border-primary border-dashed">
-          <Upload className="h-4 w-4" />
-          <AlertTitle>Ajouter un lien</AlertTitle>
-        </Alert>
-      </DrawerTrigger>
+        <DrawerTrigger asChild>
+          <Alert className="cursor-pointer border-2 border-primary border-dashed">
+            <Upload className="h-4 w-4" />
+            <AlertTitle>Ajouter un lien</AlertTitle>
+          </Alert>
+        </DrawerTrigger>
+
       <DrawerContent>
         <div className="mx-auto w-full h-fit overflow-scroll lg:w-2/3 lg:py-10">
           <DrawerHeader>
@@ -129,6 +130,7 @@ export function DrawerLinksAdd({
                       <SelectItem value="instagram">Instagram</SelectItem>
                       <SelectItem value="facebook">Facebook</SelectItem>
                       <SelectItem value="linkedin">Linkedin</SelectItem>
+                      <SelectItem value="twitter">Autre</SelectItem>
                       <SelectItem value="other">Autre</SelectItem>
                     </SelectGroup>
                   </SelectContent>
@@ -156,6 +158,8 @@ function getIcon(source: string) {
       return <Facebook className="h-4 w-4" />;
     case "linkedin":
       return <Linkedin className="h-4 w-4" />;
+    case "twitter":
+      return <X className="h-4 w-4" />;
     default:
       return <Link className="h-4 w-4" />;
   }

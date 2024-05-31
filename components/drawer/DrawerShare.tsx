@@ -11,7 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Facebook, Link, Linkedin, Send, Twitter } from "lucide-react";
+import { Facebook, Link, Linkedin, Send, Twitter } from 'lucide-react';
 import { usePathname } from "next/navigation";
 
 const shareLink = (url: string) => {
@@ -33,7 +33,7 @@ export function DrawerShare() {
           <DrawerHeader>
             <DrawerTitle>Partager</DrawerTitle>
             <DrawerDescription>
-              Partagez vos liens à vos contacts dès maintenant
+              Partagez vos liens à vos contacts dès maintenance
               <div className="flex w-full h-fit justify-around mt-4">
                 <Button
                   className="w-fit h-fit"
