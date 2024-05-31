@@ -1,11 +1,13 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { dbConnect } from '@/lib/dbConnect';
+import { CustomError } from '@/lib/customError';
 
 export async function GET(request: NextRequest, { params }: {params: {username: string}}): Promise<NextResponse> {
   
   const { searchParams } = new URL(request.url);
   const username = params.username;
+  
   
   try {
     const client = await dbConnect();
@@ -16,7 +18,10 @@ export async function GET(request: NextRequest, { params }: {params: {username: 
         values: [username]
       };
       const result = await client.query(query);
+      const customError = new CustomError('Not found', 404);
+      if (!result.rows[0]) throw customError;
       const user_id = result.rows[0].id;
+      
       
       const query2 = {
         text: 'SELECT * FROM profilr WHERE user_id = $1',
@@ -40,6 +45,9 @@ export async function GET(request: NextRequest, { params }: {params: {username: 
       await client.end(); // Fermer la connexion après utilisation
     }
   } catch (e: any) {
+    if (e instanceof CustomError) {
+      return NextResponse.json(e.message, { status: e.statusCode });
+    }
     return NextResponse.json(e.message, { status: 500 });
   }
 }

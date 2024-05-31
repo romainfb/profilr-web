@@ -13,8 +13,6 @@ export async function middleware(req: NextRequest) {
   // URL de la requête actuelle
   const { pathname } = req.nextUrl;
   
-  // Vérifie si l'utilisateur est authentifié
-  console.log("token in middleware ", token)
 
 
   // Vérifie si le token est présent et la requête est pour la page de connexion ou d'inscription

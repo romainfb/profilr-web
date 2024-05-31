@@ -20,10 +20,23 @@ export default function ProfilPage() {
   
   const path = usePathname();
   const username = path.split("/")[2];
+  const [isNotFound, setIsNotFound] = useState(false);
+
+  useEffect(() => {
+    if (isNotFound) {
+      window.location.href = "/notfound";
+    }
+  }, [isNotFound]);
 
   useEffect(() => {
     fetch(`/api/profilr/${username}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status !== 200) {
+          setIsNotFound(true);
+        }
+        return response.json()
+      }
+      )
       .then((data) => {
         setName(data.profilr.title);
         setBiography(data.profilr.bio);
