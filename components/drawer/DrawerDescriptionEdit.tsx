@@ -19,6 +19,7 @@ export function DrawerProfileBiographyEdit({
 }: {
   setProfileBiography: (profileBiography: string) => void;
   profileBiography: string;
+
 }) {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,12 +35,14 @@ export function DrawerProfileBiographyEdit({
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Button className="">
-          Biographie <Pen className="h-4 w-4 ml-2 cursor-pointer" />
-        </Button>
-      </DrawerTrigger>
+    <Drawer open={isEditable && isOpen} onOpenChange={setIsOpen}>
+
+        <DrawerTrigger asChild>
+            <Button className="">
+              Biographie {isEditable && <Pen className="h-4 w-4 ml-2 cursor-pointer" />}
+            </Button>
+        </DrawerTrigger>
+
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>

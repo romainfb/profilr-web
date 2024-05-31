@@ -42,7 +42,7 @@ export default function RegisterPage() {
         title: "Error while registering",
         description: registerError,
       });
-  }, [registerError, registerSuccess]);
+  }, [registerError, registerSuccess, toast]);
 
 
   const onSubmit = async (data: FormDataRegister) => {

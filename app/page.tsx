@@ -1,5 +1,8 @@
 "use client";
 
+
+
+
 import { DarkMode } from "@/components/DarkMode";
 import { LinkCard } from "@/components/LinkCard";
 import { DrawerProfileBiographyEdit } from "@/components/drawer/DrawerDescriptionEdit";
@@ -31,7 +34,7 @@ export default function ProfilPage() {
     if (session.data)
       setCurrentId(session.data?.user?.id as any as number);
   }, [session]);
-    
+
 
   useEffect(() => {
     if (!currentId) return;
@@ -108,6 +111,7 @@ export default function ProfilPage() {
           <DarkMode />
           <p className="text-lg font-bold">ProfilR</p>
           <DrawerShare />
+
         </div>
         {/* Profil informations */}
         <div className="flex flex-col items-center space-y-6 lg:mt-8">
@@ -190,11 +194,13 @@ export default function ProfilPage() {
 }
 
 function DraggableLinkCard({
+
   link,
   index,
   moveLink,
   onDelete,
 }: {
+
   link: {
     title: string;
     description: string;

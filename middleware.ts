@@ -23,13 +23,14 @@ export async function middleware(req: NextRequest) {
   }
 
   // Vérifie si le token est absent et la requête n'est pas pour la page de connexion ou d'inscription
-  if (!token && pathname !== '/login' && pathname !== '/register') {
+  // ou les pages publiques, incluant le profil public
+  if (!token && pathname !== '/login' && pathname !== '/register' && !pathname.startsWith('/profilR')) {
     const url = req.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 
-  // Continue la requête si l'utilisateur est authentifié ou si la requête est pour les pages de connexion ou d'inscription
+  // Continue la requête si l'utilisateur est authentifié ou si la requête est pour les pages de connexion, d'inscription ou de profil public
   return NextResponse.next();
 }
 

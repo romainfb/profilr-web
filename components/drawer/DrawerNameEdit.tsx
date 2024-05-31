@@ -29,15 +29,19 @@ export function DrawerProfileTitleEdit({
   
 
   const handleUpdate = () => {
+
     setIsOpen(false);
     setProfileTitle(titleToEdit);
+
   };
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Pen className="h-5 w-5" />
-      </DrawerTrigger>
+
+        <DrawerTrigger asChild>
+          <Pen className="h-5 w-5" />
+        </DrawerTrigger>
+
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
