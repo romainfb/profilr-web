@@ -77,14 +77,18 @@ export async function getProfileIdByUserId(userId: string) {
 
 export async function createProfile(userId: string) {
   const client = await dbConnect();
+  const defaultTitle = 'Nouveau Profil';
+  // range de 1 a 90
+  const idDefaultImage = Math.floor(Math.random() * 90) + 1;
+  const defaultImage = `https://avatar.iran.liara.run/public/${idDefaultImage}`;
 
   if (!client) {
     throw new Error("Could not connect to database");
   }
 
   try {
-    const query = 'INSERT INTO profilr (user_id) VALUES ($1) RETURNING *';
-    const values = [userId];
+    const query = 'INSERT INTO profilr (user_id, title, image) VALUES ($1, $2, $3) RETURNING *';
+    const values = [userId, defaultTitle, defaultImage];
     const result = await client.query(query, values);
 
     return result.rows[0];
