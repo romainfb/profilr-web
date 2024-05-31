@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
 
 
   // Vérifie si le token est présent et la requête est pour la page de connexion ou d'inscription
-  if (token?.sub && (pathname === '/login' || pathname === '/register')) {
+  if (token && (pathname === '/login' || pathname === '/register')) {
     const url = req.nextUrl.clone();
     url.pathname = '/';
     return NextResponse.redirect(url);

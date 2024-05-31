@@ -27,7 +27,6 @@ export default function RegisterPage() {
   const [registerSuccess, setRegisterSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const router = useRouter();
 
   useEffect(() => {
     if(registerSuccess)
@@ -63,7 +62,7 @@ export default function RegisterPage() {
         console.warn(errorData);
         setRegisterError(errorData.message || 'Registration failed');
       } else {
-        router.push('/');
+        window.location.href = '/register';
         setRegisterSuccess('Votre compte a été créé avec succès');
         setRegisterError(null); // Réinitialiser l'erreur en cas de succès
       }

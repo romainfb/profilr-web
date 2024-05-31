@@ -6,7 +6,7 @@ import { DrawerShare } from "@/components/drawer/DrawerShare";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 type LinkType = {
@@ -18,7 +18,6 @@ type LinkType = {
 
 export default function ProfilPage() {
   
-  const router = useRouter();
   
   const path = usePathname();
   const username = path.split("/")[2];
@@ -26,7 +25,7 @@ export default function ProfilPage() {
 
   useEffect(() => {
     if (isNotFound) {
-      router.push("/notfound");
+      window.location.href = "/notfound";
     }
   }, [isNotFound]);
 
