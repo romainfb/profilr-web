@@ -10,25 +10,28 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Pen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 
-export function DrawerDescriptionEdit({
-  onUpdateDescription,
-  currentDescription,
-  isEditable,
+export function DrawerProfileBiographyEdit({
+  setProfileBiography,
+  profileBiography,
 }: {
-  onUpdateDescription: (description: string) => void;
-  currentDescription: string;
-  isEditable?: boolean;
+  setProfileBiography: (profileBiography: string) => void;
+  profileBiography: string;
+
 }) {
-  const [description, setDescription] = useState(currentDescription);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [biographyToEdit, setBiographyToEdit] = useState('');
+
+  useEffect(() => {
+    setBiographyToEdit(profileBiography);
+  }, [profileBiography]);
 
   const handleUpdate = () => {
     setIsOpen(false);
-    onUpdateDescription(description);
+    setProfileBiography(biographyToEdit);
   };
 
   return (
@@ -51,8 +54,8 @@ export function DrawerDescriptionEdit({
                   type="text"
                   placeholder="Biographie"
                   className="h-20"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={biographyToEdit}
+                  onChange={(e) => setBiographyToEdit(e.target.value)}
                 />
               </div>
             </DrawerDescription>

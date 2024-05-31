@@ -1,6 +1,9 @@
 "use client";
 
-import { DarkMode } from "@/components/dark-mode";
+
+
+
+import { DarkMode } from "@/components/DarkMode";
 import { LinkCard } from "@/components/LinkCard";
 import { DrawerProfileBiographyEdit } from "@/components/drawer/DrawerDescriptionEdit";
 import { DrawerLinksAdd } from "@/components/drawer/DrawerLinksAdd";
@@ -108,32 +111,33 @@ export default function ProfilPage() {
           <DarkMode />
           <p className="text-lg font-bold">ProfilR</p>
           <DrawerShare />
+
         </div>
         {/* Profil informations */}
         <div className="flex flex-col items-center space-y-6 lg:mt-8">
-
-          {profileAvatar ? (
-            <Avatar className="w-40 h-40 mt-10">
-              <AvatarImage
-                src={profileAvatar}
-                alt="@shadcn"
-                className="w-full h-full"
-              />
-              <AvatarFallback className="w-full h-full">Profil</AvatarFallback>
-            </Avatar>
-          ) : (
-            <Skeleton className="w-40 h-40 rounded-full mt-10" />
-          )}
+          
+        {profileAvatar ? (
+          <Avatar className="w-40 h-40 mt-10">
+            <AvatarImage
+              src={profileAvatar}
+              alt="@shadcn"
+              className="w-full h-full"
+            />
+            <AvatarFallback className="w-full h-full">Profil</AvatarFallback>
+          </Avatar>
+        ) : (
+          <Skeleton className="w-40 h-40 rounded-full mt-10" />
+        )}
 
           <div className="flex flex-col items-center space-y-2">
             <div className="flex flex-row items-center space-x-3">
 
-              {profileTitle ? (
-                <h1 className="text-4xl font-bold text-center">{profileTitle}</h1>
-              ) : (
-                <Skeleton className="w-full h-8 rounded-full" />
-              )}
-
+            {profileTitle ? (
+              <h1 className="text-4xl font-bold text-center">{profileTitle}</h1>
+            ) : (
+              <Skeleton className="w-full h-8 rounded-full" />
+            )}
+              
             </div>
 
             {name ? (
@@ -142,14 +146,14 @@ export default function ProfilPage() {
             ) : (
               <Skeleton className="w-1/2 h-8"/>
             )}
-
+           
           </div>
 
           <DrawerProfileBiographyEdit
             setProfileBiography={setProfileBiography}
             profileBiography={profileBiography}
           />
-
+          
         </div>
         {/* Profil links */}
         <div className="flex flex-col items-center py-16 w-full">
@@ -190,11 +194,13 @@ export default function ProfilPage() {
 }
 
 function DraggableLinkCard({
-                             link,
-                             index,
-                             moveLink,
-                             onDelete,
-                           }: {
+
+  link,
+  index,
+  moveLink,
+  onDelete,
+}: {
+
   link: {
     title: string;
     description: string;

@@ -1,5 +1,4 @@
 'use client';
-import Link from "next/link";
 import FormField from "@/components/ui/FormField";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,13 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import {FormRegisterSchema} from "@/lib/schema";
-import {FormDataRegister} from "@/lib/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
+import { FormRegisterSchema } from "@/lib/schema";
+import { FormDataRegister } from "@/lib/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
 
 
 export default function RegisterPage() {

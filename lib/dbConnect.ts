@@ -1,5 +1,5 @@
-import { Client } from 'pg';
 import dotenv from 'dotenv';
+import { Client } from 'pg';
 
 dotenv.config();
 
@@ -22,9 +22,12 @@ export async function dbConnect() {
       },
     });
 
+    client.on("error", (err) => {
+      console.error("Unexpected error on idle client", err);
+    });
+
     await client.connect();
 
-    console.log("Connected to database");
     return client;
   } catch (error) {
     console.error("Error connecting to database", error);
