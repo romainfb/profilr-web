@@ -10,6 +10,7 @@ export const DraggableLinkCard = ({ link, index, moveLink, onDelete }) => {
         title={link}
         description={""}
         icon={""}
+        isEditable={true}
         onDelete={() => onDelete()}
       />
     </div>
