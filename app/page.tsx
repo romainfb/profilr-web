@@ -2,6 +2,7 @@
 
 import { DarkMode } from "@/components/DarkMode";
 import { LinkCard } from "@/components/LinkCard";
+import { LogoutPopup } from "@/components/LogoutPopup";
 import { DrawerProfileBiographyEdit } from "@/components/drawer/DrawerDescriptionEdit";
 import { DrawerLinksAdd } from "@/components/drawer/DrawerLinksAdd";
 import { DrawerShare } from "@/components/drawer/DrawerShare";
@@ -115,7 +116,10 @@ export default function ProfilPage() {
             <div className="flex flex-row items-center w-full justify-between">
               <DarkMode />
               <p className="text-lg font-bold">ProfilR</p>
-              <DrawerShare />
+               <div className="flex space-x-4">
+                <DrawerShare />
+                <LogoutPopup />
+               </div>
             </div>
 
             {/* Profil informations */}
