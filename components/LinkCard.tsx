@@ -13,7 +13,6 @@ export const LinkCard = ({
                            description,
                            icon,
                            onDelete,
-                           isEditable,
                          }: {
   title: string,
   description: string,
@@ -37,7 +36,7 @@ export const LinkCard = ({
           {description}
         </AlertDescription>
       </div>
-      {isEditable && (
+      {(
         <span className="cursor-pointer items-center flex w-fit" onClick={onDelete}>
           <CircleX className="h-6 w-6" />
         </span>

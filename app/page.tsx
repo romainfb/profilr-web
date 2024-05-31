@@ -30,6 +30,7 @@ export default function ProfilPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     if (session.data)
       setCurrentId(session.data?.user?.id as any as number);
   }, [session]);
@@ -45,7 +46,6 @@ export default function ProfilPage() {
           fetch(`/api/profile?id=${currentId}`).then((res) => res.json()),
           fetch(`/api/user?id=${currentId}`).then((res) => res.json()),
         ]);
-
         setLinks(linksResponse);
         setProfileAvatar(profileResponse.image);
         setProfileBiography(profileResponse.bio);
