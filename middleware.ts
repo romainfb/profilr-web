@@ -1,8 +1,6 @@
 // middleware.js
-import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-
-console.log('In Middleware...');
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest) {
   // Utilisez une clé secrète pour décoder le token JWT

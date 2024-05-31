@@ -35,7 +35,7 @@ const FormField = <T extends FieldValues>({
         variant: "destructive",
         title: "Erreur",
         description: error.message,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        action: <ToastAction altText="Try again">Réessayer</ToastAction>,
       })
   }, [error]);
 

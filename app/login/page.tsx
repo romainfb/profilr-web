@@ -13,7 +13,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { FormLoginSchema } from '@/lib/schema';
 import { FormDataLogin } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignInResponse, signIn} from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -36,7 +36,7 @@ export default function LoginPage() {
     if(loginSuccess)
       toast({
         variant: "success",
-        title: "Registration successful",
+        title: "Vous êtes connecté avec succès",
         description: loginSuccess,
       });
     if(loginError)
@@ -65,7 +65,7 @@ export default function LoginPage() {
       }
       else{
         setIsLoading(false);
-        setLoginSuccess('Login successful');
+        setLoginSuccess('Vous êtes connecté avec succès');
         router.push('/');
       }
     } catch (error: any) {
